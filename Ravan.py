@@ -1,0 +1,103 @@
+{
+  "name": "antd",
+  "version": "4.16.0",
+  "description": "An enterprise-class UI design language and React components implementation",
+  "title": "Ant Design",
+  "keywords": [
+    "ant",
+    "component",
+    "components",
+    "design",
+    "framework",
+    "frontend",
+    "react",
+    "react-component",
+    "ui"
+  ],
+  "homepage": "https://ant.design",
+  "bugs": {
+    "url": "https://github.com/ant-design/ant-design/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ant-design/ant-design"
+  },
+  "license": "MIT",
+  "contributors": [
+    "ant"
+  ],
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/ant-design"
+  },
+  "files": [
+    "dist",
+    "lib",
+    "es"
+  ],
+  "sideEffects": [
+    "dist/*",
+    "es/**/style/*",
+    "lib/**/style/*",
+    "*.less"
+  ],
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "unpkg": "dist/antd.min.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "prepare": "husky install",
+    "api-collection": "antd-tools run api-collection",
+    "authors": "node ./scripts/generate-authors",
+    "build": "npm run compile && NODE_OPTIONS='--max-old-space-size=4096' npm run dist",
+    "bundlesize": "bundlesize",
+    "check-commit": "node ./scripts/check-commit",
+    "check-ts-demo": "node ./scripts/check-ts-demo",
+    "clean": "antd-tools run clean && rm -rf es lib coverage dist report.html",
+    "prestart": "npm run version",
+    "precompile": "npm run version",
+    "pretest": "npm run version",
+    "predist": "npm run version",
+    "presite": "npm run version",
+    "color-less": "node ./scripts/generate-color-less",
+    "compile": "npm run clean && antd-tools run compile",
+    "compile:less": "antd-tools run compile:less",
+    "changelog": "node ./scripts/print-changelog",
+    "predeploy": "antd-tools run clean && npm run site && cp CNAME _site && npm run site:test",
+    "deploy": "bisheng gh-pages --push-only --dotfiles",
+    "deploy:china-mirror": "git checkout gh-pages && git pull origin gh-pages && git push git@gitee.com:ant-design/ant-design.git gh-pages",
+    "dist": "antd-tools run dist",
+    "dist:esbuild": "ESBUILD=true npm run dist",
+    "lint": "npm run tsc && npm run lint:script && npm run lint:demo && npm run lint:style && npm run lint:deps && npm run lint:md",
+    "lint-fix": "npm run lint-fix:script && npm run lint-fix:demo && npm run lint-fix:style",
+    "lint-fix:demo": "npm run lint:demo -- --fix",
+    "lint-fix:script": "npm run lint:script -- --fix",
+    "lint-fix:style": "npm run lint:style -- --fix",
+    "lint:demo": "eslint components/*/demo/*.md",
+    "lint:deps": "antd-tools run deps-lint",
+    "lint:md": "remark . -f -q",
+    "lint:script": "eslint . --ext '.js,.jsx,.ts,.tsx'",
+    "lint:style": "stylelint '{site,components}/**/*.less' --syntax less",
+    "pre-publish": "npm run test-all -- --skip-build",
+    "prettier": "prettier -c --write '**/*'",
+    "pretty-quick": "pretty-quick",
+    "pub": "npm run version && antd-tools run pub",
+    "prepublishOnly": "antd-tools run guard",
+    "site": "cross-env NODE_ICU_DATA=node_modules/full-icu ESBUILD=1 concurrently \"bisheng build --ssr -c ./site/bisheng.config.js\" \"npm run color-less\"",
+    "sort": "npx sort-package-json",
+    "sort-api": "antd-tools run sort-api-table",
+    "start": "antd-tools run clean && cross-env NODE_ENV=development concurrently \"npm run color-less\" \"bisheng start -c ./site/bisheng.config.js\"",
+    "test": "jest --config .jest.js --cache=false",
+    "test:update": "jest --config .jest.js --cache=false -u",
+    "test-all": "sh -e ./scripts/test-all.sh",
+    "test-node": "jest --config .jest.node.js --cache=false",
+    "tsc": "tsc --noEmit",
+    "site:test": "jest --config .jest.site.js --cache=false --force-exit",
+    "test-image": "npm run compile:less && docker-compose run tests",
+    "version": "node ./scripts/generate-version",
+    "install-react-16": "npm i --no-save react@16 react-dom@16 react-test-renderer@16 enzyme-adapter-react-16",
+    "argos": "argos upload imageSnapshots"
+  },
+  "browserslist": [
+    "> 0.5%",
+    "l
